@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <p *ngIf="message" class="alert alert-info">{{ message }}</p>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-12">
+      <form>
+        <div class="input-group">
+          <span class="input-group-btn">
+            <a [routerLink]="['/new']" class="btn btn-primary">
+              New picture
+            </a>
+          </span>
+          <input #titleSought (keyup)="0" placeholder="Filter by title" type="text" class="form-control">
+        </div>
+      </form>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <panel *ngFor="let pic of pictures | filterByTitle: titleSought.value" title="{{ pic.title }}" class="col-md-2">
+      <a [routerLink]="['/edit', pic._id]">
+        <picture url="{{ pic.url }}" title="{{ pic.title }}"></picture>
+      </a>
+
+      <btn
+        cssClass="btn-danger btn-block"
+        text="Delete"
+        confirmMessage="Are you sure?"
+        (action)="delete(pic)"
+      ></btn>
+    </panel>
+  </div>
+</div>

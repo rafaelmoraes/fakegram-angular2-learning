@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  fakegram-angular2:
+    image: node:latest
+    container_name: fakegram-angular2
+    working_dir: /development
+    volumes:
+     - .:/development:z
+     - .docker_volume/root_home:/root:z
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true

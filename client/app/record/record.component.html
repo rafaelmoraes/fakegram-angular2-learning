@@ -1,0 +1,48 @@
+<h1 *ngIf="!picture._id" class="text-center">New picture</h1>
+<h1 *ngIf="picture._id" class="text-center">Edit picture</h1>
+<div class="container">
+
+  <form [formGroup]="myForm" class="row" (submit)="save($event)">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Title</label>
+        <input formControlName="title" name="title" [(ngModel)]="picture.title" class="form-control" autocomplete="off">
+        <div *ngIf="myForm.controls.title.invalid">
+          <span *ngIf="myForm.controls.title.errors.required" class="form-control alert-danger">
+            Title field is required
+          </span>
+
+          <span *ngIf="myForm.controls.title.errors.minlength" class="form-control alert-danger">
+            Title field should have more than 4 character
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>URL</label>
+        <input formControlName="url" name="url" [(ngModel)]="picture.url" class="form-control" autocomplete="off">
+        <span *ngIf="myForm.controls.url.invalid" class="form-control alert-danger">
+          URL field is required
+        </span>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea formControlName="description" name="description" [(ngModel)]="picture.description" class="form-control" autocomplete="off">
+        </textarea>
+      </div>
+      <btn
+        type="submit"
+        text="Save"
+        [disabled]="myForm.invalid"
+        cssClass="btn-primary"
+      ></btn>
+
+      <a [routerLink]="['']" class="btn btn-primary">Back</a>
+      <hr>
+    </div>
+
+    <div *ngIf="picture.url" class="col-md-6">
+      <picture [url]="picture.url" [title]="picture.title">
+      </picture>
+    </div>
+  </form>
+</div>
